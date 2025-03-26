@@ -1,4 +1,5 @@
 import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
+import { defineAsyncComponent } from 'vue'
 import AppView from '../views/AppView.vue'
 
 const router = createRouter({
@@ -12,17 +13,17 @@ const router = createRouter({
         {
           path: 'dataSource',
           name: 'dataSource',
-          component: () => import('../views/DataSourceView.vue')
+          component: defineAsyncComponent(() => import('../views/DataSourceView.vue')),
         },
         {
           path: 'layout',
           name: 'layout',
-          component: () => import('../views/PageLayoutView.vue')
+          component: defineAsyncComponent(() => import('../views/PageLayoutView.vue'))
         },
         {
           path: 'actions',
           name: 'actions',
-          component: () => import('../views/ActionsView.vue')
+          component: defineAsyncComponent(() => import('../views/ActionsView.vue'))
         }
       ]
     },
@@ -32,7 +33,11 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: defineAsyncComponent(() => import('../views/AboutView.vue'))
+    },
+    {
+      path: '/',
+      redirect: '/app/layout'
     }
   ]
 })
