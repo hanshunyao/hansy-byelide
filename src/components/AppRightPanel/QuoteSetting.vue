@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import type { BlockInfo, QuoteBlockInfo } from '@/types/block'
-import { useField, useFieldArray, useForm } from 'vee-validate'
+import type { QuoteBlockInfo } from '@/types/block'
+import { useFieldArray, useForm } from 'vee-validate'
 import { watch } from 'vue'
 
-// 怎么传入 props，在这里如何定义？
 const props = defineProps<{
   blockInfo: QuoteBlockInfo
 }>()
 
-const emit = defineEmits<{ (event: 'change', block: BlockInfo): void }>()
+const emit = defineEmits<{ (event: 'change', block: QuoteBlockInfo): void }>()
 
 const { values, validate, defineInputBinds } = useForm({
   initialValues: {
