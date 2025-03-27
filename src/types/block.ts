@@ -18,11 +18,14 @@ export interface HeroTitleBlockInfo extends BaseBlockInfo {
 }
 
 export interface ViewBlockInfo extends BaseBlockInfo {
-  type: 'view',
+  type: 'view'
   props: {
-    fields: Record<string, {
-      type: string
-    }>
+    fields: Record<
+      string,
+      {
+        type: string
+      }
+    >
     fieldProps: {
       width: number
       visible: boolean
@@ -31,15 +34,18 @@ export interface ViewBlockInfo extends BaseBlockInfo {
   }
 }
 
+export type QuoteBlockStatus = 'success' | 'warning' | 'error'
+
 export interface QuoteBlockInfo extends BaseBlockInfo {
-  type: 'quote',
+  type: 'quote'
   props: {
     content: string
+    status: QuoteBlockStatus
   }
 }
 
 export interface ImageBlockInfo extends BaseBlockInfo {
-  type: 'image',
+  type: 'image'
   props: {
     url: string
   }
@@ -47,14 +53,14 @@ export interface ImageBlockInfo extends BaseBlockInfo {
 
 // external
 export interface ButtonBlockInfo extends BaseBlockInfo {
-  type: 'button',
+  type: 'button'
   props: {
     content: string
   }
 }
 
 export interface FormBlockInfo extends BaseBlockInfo {
-  type: 'form',
+  type: 'form'
   props: {
     fields: {
       type: string
@@ -66,17 +72,16 @@ export interface FormBlockInfo extends BaseBlockInfo {
 }
 
 export interface NotesBlockInfo extends BaseBlockInfo {
-  type: 'notes',
+  type: 'notes'
   props: {
     content: string
   }
 }
 
-
 export type ChartType = 'echarts' | 'canvas' | 'svg'
 
 export interface ChartBlockInfo extends BaseBlockInfo {
-  type: 'chart',
+  type: 'chart'
   props: {
     chartType: ChartType
   }

@@ -6,7 +6,8 @@ export const blocks: BlockInfo[] = [
     type: 'quote',
     label: '引述',
     props: {
-      content: '引述文本 quote'
+      content: '引述文本 quote',
+      status: 'success'
     }
   },
   {
@@ -51,13 +52,12 @@ export const blocks: BlockInfo[] = [
     label: '视图',
     props: {
       fields: {
-        'id': {
-          type: 'text',
-        },
+        id: {
+          type: 'text'
+        }
       },
       fieldProps: [],
-      data: [],
-
+      data: []
     }
   },
   {

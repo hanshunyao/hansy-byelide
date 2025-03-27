@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { blocksBaseMetaList } from '@/constants/blocksBaseMeta'
 import { SmoothDndContainer } from '@/components/SmoothDnd/SmoothDndContainer'
 import { SmoothDndDraggable } from '@/components/SmoothDnd/SmoothDndDraggable'
+import { blocksBaseMetaList } from '@/constants/blocksBaseMeta'
 </script>
 
 <template>
   <div class="blocks-drawer-wrapper">
     <h3 class="drawer-title">组件</h3>
+    <!-- <div v-for="d in blocksBaseMetaList" :key="d.type">{{ d.type }}</div> -->
 
     <smooth-dnd-container
       behaviour="copy"

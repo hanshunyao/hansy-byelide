@@ -1,21 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Drag, Delete } from '@icon-park/vue-next'
-import { useEnvStore } from '@/stores/debug'
+import { Delete, Drag } from '@icon-park/vue-next'
+import { dropHandlers, smoothDnD } from 'smooth-dnd'
+import { inject, ref } from 'vue'
+
 import { useAppEditorStore } from '@/stores/appEditor'
-import { smoothDnD, dropHandlers } from 'smooth-dnd'
+import { useEnvStore } from '@/stores/debug'
+
 // import { useClickOutside } from '@/hooks/useClickOutside'
 
-const p = defineProps<{
+defineProps<{
   block: BlockInfo
   i: number
 }>()
 
 import { storeToRefs } from 'pinia'
+
 import type { BlockInfo } from '@/types/block'
 
 smoothDnD.dropHandler = dropHandlers.reactDropHandler().handler
 
+// const props = defineProps<{
+//   type: BlockType
+// }>()
 const blockWrapperRef = ref<HTMLElement | null>(null)
 const envStore = useEnvStore()
 const appEditorStore = useAppEditorStore()
@@ -23,6 +29,10 @@ const appEditorStore = useAppEditorStore()
 const { currentBlockId, blocks } = storeToRefs(appEditorStore)
 const { selectBlock } = appEditorStore
 
+// 需要保证 blocksMap 在 BlockRenderer 之前被注入，并且我们暂时使用的 Symbol 作为 key
+// console.log(inject('blocksMap'))
+// useClickOutside(blockWrapperRef)
+const editable = inject('editable', true)
 </script>
 
 <template>
@@ -30,6 +40,7 @@ const { selectBlock } = appEditorStore
     <!-- @vue-ignore -->
     <component :is="$blocksMap[block.type].material" class="block" :blockInfo="block" />
     <div
+      v-if="editable"
       :class="[
         'block-wrapper-indicator',
         { shown: envStore.debug, selected: currentBlockId === block.id }

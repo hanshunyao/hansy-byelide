@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { blocks } from '@/mocks/blocks'
+import 'vue-json-pretty/lib/styles.css'
+
+import { computed } from 'vue'
+
 import { blocksBaseMeta } from '@/constants/blocksBaseMeta'
 import { useAppEditorStore } from '@/stores/appEditor'
-import { computed } from 'vue'
-import QuoteSetting from './QuoteSetting.vue'
-import ChartSetting from './ChartSetting.vue'
 import type { BlockInfo } from '@/types/block'
+
+import ChartSetting from './ChartSetting.vue'
+import QuoteSetting from './QuoteSetting.vue'
+import SchemaExporter from './SchemaExporter.vue'
 
 const appEditorStore = useAppEditorStore()
 
 const blocksMap = computed(() => {
+  const { blocks } = appEditorStore
   return blocks.reduce<Record<string, (typeof blocks)[0]>>((acc, cur) => {
     acc[cur.id] = cur
     return acc
@@ -42,11 +47,21 @@ const blockSetting = computed(() => {
         {{ blocksBaseMeta[currentBlockInfo.type].name }}
       </div>
       <div class="app-right-panel-content">
+        <!-- 策略模式渲染？？？ 动态组件-->
         <component
           :is="blockSetting"
           :blockInfo="currentBlockInfo"
           @change="(block: BlockInfo) => appEditorStore.updateBlock(block.id, block)"
         />
+        <SchemaExporter :currentBlockInfo="currentBlockInfo" />
+        <!-- <QuoteSetting
+          :blockInfo="currentBlockInfo"
+          @change="(val) => appEditorStore.updateBlock(currentBlockInfo?.id, val)"
+        /> -->
+        <!-- <div>
+          {{ currentBlockInfo.type }}
+        </div>
+        <input v-if="currentBlockInfo.type === 'quote'" :defaultValue="currentBlockInfo.label" /> -->
       </div>
     </template>
   </div>
@@ -71,5 +86,8 @@ const blockSetting = computed(() => {
 
 .app-right-panel-content {
   padding: 0 16px 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 </style>
