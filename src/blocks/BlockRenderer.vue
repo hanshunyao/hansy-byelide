@@ -12,10 +12,6 @@ import { storeToRefs } from 'pinia'
 
 smoothDnD.dropHandler = dropHandlers.reactDropHandler().handler
 
-// const props = defineProps<{
-//   type: BlockType
-// }>()
-
 const envStore = useEnvStore()
 const appEditorStore = useAppEditorStore()
 
@@ -58,7 +54,11 @@ const applyDrag = <T extends any[]>(arr: T, dragResult: DropResult) => {
     <smooth-dnd-draggable v-for="(block, i) in blocks" :key="block.id">
       <div class="block-wrapper" @click.stop="selectBlock(block.id)">
         <!-- @vue-ignore -->
-        <component :is="$blocksMap[block.type].material" class="block" />
+        <component
+          :is="$blocksMap[block.type].material"
+          class="block"
+          :content="block.props?.content"
+        />
         <div
           :class="[
             'block-wrapper-indicator',
@@ -77,31 +77,6 @@ const applyDrag = <T extends any[]>(arr: T, dragResult: DropResult) => {
       </div>
     </smooth-dnd-draggable>
   </smooth-dnd-container>
-  <!-- <div ref="containerRef">
-    <div
-      class="block-wrapper"
-      v-for="(d, i) in b"
-      :key="d.id"
-      @click.stop="appEditorStore.selectBlock(d.id)"
-    >
-      <component :is="d.material" class="block" />
-      <div
-        :class="[
-          'block-wrapper-indicator',
-          { shown: envStore.debug, selected: appEditorStore.currentBlockId === d.id }
-        ]"
-      >
-        <div class="block-toolbar" v-if="appEditorStore.currentBlockId === d.id">
-          <div class="block-toolbar-item handle">
-            <drag />
-          </div>
-          <div class="block-toolbar-item" @click="b.splice(i, 1)">
-            <delete />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <style scoped>

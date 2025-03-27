@@ -32,28 +32,14 @@ defineProps<{
   msg: string
 }>()
 
-// 千万不要这样！
-// const { debug, toggle } = useEnvStore()
 const envStore = useEnvStore()
 
 const route = useRoute()
 
 const activeLink = computed(() => route.path)
 
-// 等价于 computed
-// const activeLink = ref(route.path.slice(1))
-// watch(
-//   () => route.path,
-//   (path) => {
-//     console.log('🚀 ~ file: AppNavigator.vue:20 ~ path:', path)
-//     activeLink.value = path.slice(1)
-//   }
-// )
-
 const Icon = defineComponent({
   setup(props) {
-    // 千万不能这样子写！！！
-    // const { type } = props
     switch (props.type) {
       case 'dataSource':
         return () => h(Data, { size: 16 })
@@ -93,10 +79,6 @@ const Icon = defineComponent({
         :style="activeLink.includes(item.value) && { background: item.bg }"
         :to="`/app/${item.value}`"
       >
-        <!-- defineComponent + h 代替条件渲染 -->
-        <!-- <div v-if="item.value === 'dataSource'"><Data /></div>
-        <div v-if="item.value === 'layout'"><LayoutThree /></div>
-        <div v-if="item.value === 'action'"><Lightning /></div> -->
         <div
           :style="{
             lineHeight: 0.7,
