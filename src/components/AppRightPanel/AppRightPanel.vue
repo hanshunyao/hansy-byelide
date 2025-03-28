@@ -44,7 +44,7 @@ const blockSetting = computed(() => {
   <div class="app-right-panel-wrapper">
     <template v-if="currentBlockInfo">
       <div class="app-right-panel-header">
-        {{ blocksBaseMeta[currentBlockInfo.type].name }}
+        {{ blocksBaseMeta[currentBlockInfo.type].label }}
       </div>
       <div class="app-right-panel-content">
         <!-- 策略模式渲染？？？ 动态组件-->
@@ -54,14 +54,6 @@ const blockSetting = computed(() => {
           @change="(block: BlockInfo) => appEditorStore.updateBlock(block.id, block)"
         />
         <SchemaExporter :currentBlockInfo="currentBlockInfo" />
-        <!-- <QuoteSetting
-          :blockInfo="currentBlockInfo"
-          @change="(val) => appEditorStore.updateBlock(currentBlockInfo?.id, val)"
-        /> -->
-        <!-- <div>
-          {{ currentBlockInfo.type }}
-        </div>
-        <input v-if="currentBlockInfo.type === 'quote'" :defaultValue="currentBlockInfo.label" /> -->
       </div>
     </template>
   </div>
